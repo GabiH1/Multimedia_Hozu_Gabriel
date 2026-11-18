@@ -1,0 +1,14 @@
+#para2:hover{
+    color:rgb(255, 0, 255);
+    font-size:22px;
+}
+tr:nth-child(2n){
+    color:blue;
+}
+tr:nth-child(2n+1){
+    color:red;
+}
+img{
+    border:3px solid black;
+    width: 50px;
+}

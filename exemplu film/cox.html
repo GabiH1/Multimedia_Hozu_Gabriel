@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Animatii</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            font-family: sans-serif;
+        }
+        canvas {
+            border: 1px solid #444;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="film" width="400" height="400" style="border:2px solid black;"></canvas>
+    <button id="schimbasens">Schimba sens</button>
+    <input id="slider" type="range" min="30" max="300" value="70">
+
+    <script>
+        let model = {
+            numberOfImages: 44,
+            loadedImages: 0,
+            index:0,
+            imagini: [],
+            pornit: true,
+            sens: true,
+            isReady: function () {
+                return this.numberOfImages == this.loadedImages
+            },
+            actualizare: function () {
+                if (this.pornit && this.sens) {
+                    this.index++;
+                    if (this.index >= this.loadedImages)
+                        this.index = 0;
+                }
+                else if (this.pornit) {
+                    this.index--;
+                    if (this.index < 0)
+                        this.index = this.loadedImages - 1;
+                }
+            }
+        };
+
+        for (let i = 0; i < model.numberOfImages; i++) {
+            let imagePath = "media/frame_0";
+            if (i < 10)
+                imagePath += "0";
+            imagePath += i.toString() + ".gif";
+            let image = document.createElement("img");
+            image.src = imagePath;
+            model.imagini[i] = image;
+            model.loadedImages++;
+        }
+
+        function desenare() {
+            if (model.isReady()) {
+                document.getElementById("film").getContext("2d").drawImage(model.imagini[model.index], 0, 0);
+            }
+            requestAnimationFrame(desenare);
+        }
+        requestAnimationFrame(desenare);
+
+        let interval=setInterval(function(){
+            model.actualizare();},70);
+            document.getElementById("slider").onchange=function(){
+                clearInterval(interval);
+                interval=setInterval(function(){
+                    model.actualizare();
+                },this.value);
+            };
+            document.getElementById("schimbasens").onclick=function(){
+                model.sens=!model.sens;
+            }
+
+            document.getElementById("film").onclick=function(){
+                model.pornit=!model.pornit;
+            }
+        
+
+
+    </script>
+</body>
+
+</html>

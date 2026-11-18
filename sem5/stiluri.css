@@ -1,0 +1,25 @@
+p#para2:hover {
+        color: red;
+        font-size: 25px;
+        background-color: blue;
+      }
+
+      .clasamea
+      {
+        color: green;
+      }
+
+      tr:nth-child(2n+1)
+      {
+        color: red;
+      }
+
+      tr:nth-child(2n)
+      {
+        color: blue; 
+      }
+
+      img
+      {
+        border: 10px solid red;
+      }
